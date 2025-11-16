@@ -3,19 +3,28 @@ server:
 
 spring:
   datasource:
+    # Use the robust URL with SSL, Timezone, and public key retrieval
     url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&requireSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # 💡 NEW FIX: Add connection timeout to resolve 'Communications link failure'
+    # 💡 FIX: Add connection timeout to prevent Hikari pool failure (Communications link failure)
     hikari:
-      connection-timeout: 30000
+      connection-timeout: 30000 
+      # Optional, but can help keep connections alive and prevent silent timeouts
+      maximum-pool-size: 10
+      minimum-idle: 2
+      # Ensures inactive connections are validated before use (for long-idle connections)
+      # This is the modern Hikari way to handle the wait_timeout issue
+      idle-timeout: 600000 
+      max-lifetime: 1800000
+      
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
-      # 💡 CORRECTION: Use the modern MySQL 8 dialect.
+      # 💡 FIX: Use the correct modern MySQL 8 dialect to clear warnings
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 
 jwt:
