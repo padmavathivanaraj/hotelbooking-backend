@@ -126,4 +126,3 @@ public ResponseEntity<?> login(@RequestBody LoginRequest req) {
     return ResponseEntity.ok(resp);
 }
 }
-
