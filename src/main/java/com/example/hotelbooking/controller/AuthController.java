@@ -27,7 +27,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173") // frontend later use panna ready
+@CrossOrigin(origins = "http://localhost:5203") // frontend later use panna ready
 public class AuthController {
 
     private final UserRepository userRepo;

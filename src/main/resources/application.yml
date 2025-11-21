@@ -1,36 +1,20 @@
-server:
-  port: ${PORT:8080}
-
 spring:
   datasource:
-    # Use the robust URL with SSL, Timezone, and public key retrieval
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=true&requireSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://mysql.railway.internal:52450/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: Priya@1996
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # 💡 FIX: Add connection timeout to prevent Hikari pool failure (Communications link failure)
-    hikari:
-      connection-timeout: 30000 
-      # Optional, but can help keep connections alive and prevent silent timeouts
-      maximum-pool-size: 10
-      minimum-idle: 2
-      # Ensures inactive connections are validated before use (for long-idle connections)
-      # This is the modern Hikari way to handle the wait_timeout issue
-      idle-timeout: 600000 
-      max-lifetime: 1800000
-      
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
-      # 💡 FIX: Use the correct modern MySQL 8 dialect to clear warnings
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 
 jwt:
   secret: "thisIsMyJwtSecretKey123"
   expirationMs: 86400000
-
 
 razorpay:
   key-id: ${RAZORPAY_KEY}
