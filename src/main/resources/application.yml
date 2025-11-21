@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://ballast.proxy.rlwy.net:52450/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://yamanote.proxy.rlwy.net:19667/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
-    password: Priya@1996
+    password: Priya@1996   # Use your actual password shown in Railway Public tab
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
